@@ -11,10 +11,16 @@ const TransactionList = ({ transactions, onRemoveTransaction }) => {
                         className={`list-group-item d-flex justify-content-between align-items-center ${transaction.amount < 0 ? 'list-group-item-danger' : 'list-group-item-success'
                             }`}
                     >
-                        <span>
+                        {/* <span>
                             {transaction.description}
-                        </span>
-                        <span>
+                        </span> */}
+
+                        <div>
+                            <strong>{transaction.description}</strong>
+                            <br />
+                            <small className="text-muted">{new Date(transaction.date).toLocaleDateString()}</small>
+                        </div>
+                        <div>
                             Rp {transaction.amount.toLocaleString()}
                             <button
                                 className="btn btn-danger btn-sm ms-3"
@@ -22,7 +28,7 @@ const TransactionList = ({ transactions, onRemoveTransaction }) => {
                             >
                                 Hapus
                             </button>
-                        </span>
+                        </div>
                     </li>
                 ))}
             </ul>

@@ -3,13 +3,20 @@ import React, { useState } from 'react';
 const AddTransaction = ({ onAddTransaction }) => {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
+    const [date, setDate] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!description || !amount) return alert('Isi semua kolom!');
-        onAddTransaction({ description, amount: parseFloat(amount) });
+        if (!description || !amount || !date) return alert('Isi semua kolom!');
+
+        onAddTransaction({
+            description,
+            amount: parseFloat(amount),
+            date,
+        });
         setDescription('');
         setAmount('');
+        setDate('');
     };
 
     return (
@@ -30,6 +37,15 @@ const AddTransaction = ({ onAddTransaction }) => {
                     className="form-control"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
+                />
+            </div>
+            <div className="mb-3">
+                <label>Tanggal</label>
+                <input
+                    type="date"
+                    className="form-control"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                 />
             </div>
             <button type="submit" className="btn btn-primary w-100">Tambah Transaksi</button>
