@@ -15,7 +15,7 @@ const Login = () => {
 
         if (user) {
             alert('Login berhasil!');
-            localStorage.setItem('isLoggedIn', true);
+            localStorage.setItem('isLoggedIn', 'true');
             navigate('/'); // Redirect ke halaman utama
         } else {
             alert('Email atau password salah!');
