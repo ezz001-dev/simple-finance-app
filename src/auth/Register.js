@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -50,7 +50,8 @@ const Register = () => {
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Register</button>
                 <p className="mt-3">
-                    Sudah punya akun? <a href="/login">Login di sini</a>
+                    {/* Sudah punya akun? <a href="/login">Login di sini</a> */}
+                    Sudah punya akun? <Link to="/login">Login di sini</Link>
                 </p>
             </form>
         </div>
