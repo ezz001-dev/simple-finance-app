@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AddTransaction = ({ onAddTransaction }) => {
+const AddTransaction = ({ onAddTransaction, transaction }) => {
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
+
+    useEffect(() => {
+        if (transaction) {
+            console.log("transaction goto edit ===> ", transaction)
+            setDescription(transaction.description);
+            setAmount(transaction.amount);
+            setDate(transaction.date);
+        } else {
+            setDescription('');
+            setAmount('');
+            setDate('');
+        }
+    }, [transaction]);
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,7 +63,9 @@ const AddTransaction = ({ onAddTransaction }) => {
                     onChange={(e) => setDate(e.target.value)}
                 />
             </div>
-            <button type="submit" className="btn btn-primary w-100">Tambah Transaksi</button>
+            <button type="submit" className="btn btn-primary w-100">
+                {transaction ? 'Perbarui Transaksi' : 'Tambah Transaksi'}
+            </button>
         </form>
     );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TransactionList = ({ transactions, onRemoveTransaction }) => {
+const TransactionList = ({ transactions, onRemoveTransaction, onEditTransaction }) => {
     return (
         <div className="mt-4">
             <h5>Daftar Transaksi</h5>
@@ -22,6 +22,12 @@ const TransactionList = ({ transactions, onRemoveTransaction }) => {
                         </div>
                         <div>
                             Rp {transaction.amount.toLocaleString()}
+                            <button
+                                className="btn btn-warning btn-sm ms-3"
+                                onClick={() => onEditTransaction(index)}
+                            >
+                                Edit
+                            </button>
                             <button
                                 className="btn btn-danger btn-sm ms-3"
                                 onClick={() => onRemoveTransaction(index)}
