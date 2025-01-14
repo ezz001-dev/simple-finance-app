@@ -1,11 +1,20 @@
 
 
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import Header from './components/Header';
 import AddTransaction from './components/AddTransaction';
 import TransactionList from './components/TransactionList';
 
+import Login from './auth/Login';
+import Register from './auth/Register';
+
 const App = () => {
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+
   const [transactions, setTransactions] = useState([]);
   const [transactionToEdit, setTransactionToEdit] = useState(null); // Menyimpan transaksi yang sedang diedit
 
@@ -43,18 +52,39 @@ const App = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <Header balance={calculateBalance()} />
-      <AddTransaction
-        onAddTransaction={addTransaction}
-        transaction={transactionToEdit !== null ? transactions[transactionToEdit] : null}
-      />
-      <TransactionList
-        transactions={transactions}
-        onRemoveTransaction={removeTransaction}
-        onEditTransaction={editTransaction}
-      />
-    </div>
+
+    <Router>
+      <Routes>
+
+        {/* Halaman login dan register */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route path='/' element={
+          isLoggedIn ? (
+            <div className="container mt-5">
+              <Header balance={calculateBalance()} />
+              <AddTransaction
+                onAddTransaction={addTransaction}
+                transaction={transactionToEdit !== null ? transactions[transactionToEdit] : null}
+              />
+              <TransactionList
+                transactions={transactions}
+                onRemoveTransaction={removeTransaction}
+                onEditTransaction={editTransaction}
+              />
+            </div>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }>
+
+        </Route>
+
+      </Routes>
+    </Router>
+
+
   );
 };
 
