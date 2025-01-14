@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ const Login = () => {
         if (user) {
             alert('Login berhasil!');
             localStorage.setItem('isLoggedIn', 'true');
+            setIsLoggedIn(true); // Perbarui state login
             navigate('/'); // Redirect ke halaman utama
         } else {
             alert('Email atau password salah!');

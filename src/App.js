@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -12,7 +12,17 @@ import Register from './auth/Register';
 
 const App = () => {
 
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  // const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  // console.log("isLoggedIn ", isLoggedIn)
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(loggedInStatus);
+  }, []);
+
+
 
 
   const [transactions, setTransactions] = useState([]);
@@ -51,19 +61,24 @@ const App = () => {
     setTransactionToEdit(index); // Set transaksi yang akan diedit
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
+
   return (
 
     <Router>
       <Routes>
 
         {/* Halaman login dan register */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register />} />
 
         <Route path='/' element={
           isLoggedIn ? (
             <div className="container mt-5">
-              <Header balance={calculateBalance()} />
+              <Header balance={calculateBalance()} handleLogout={handleLogout} />
               <AddTransaction
                 onAddTransaction={addTransaction}
                 transaction={transactionToEdit !== null ? transactions[transactionToEdit] : null}

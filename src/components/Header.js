@@ -1,11 +1,6 @@
 import React from 'react';
 
-const Header = ({ balance }) => {
-
-    const handleLogout = () => {
-        localStorage.setItem('isLoggedIn', false);
-        window.location.reload();
-    };
+const Header = ({ balance, handleLogout }) => {
 
     return (
         <div className="text-center mt-3">
