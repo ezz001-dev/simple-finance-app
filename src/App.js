@@ -10,6 +10,8 @@ import TransactionList from './components/TransactionList';
 import Login from './auth/Login';
 import Register from './auth/Register';
 
+import Dashboard from './pages/Dashboard';
+
 const App = () => {
 
   // const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -92,9 +94,21 @@ const App = () => {
           ) : (
             <Navigate to="/login" />
           )
-        }>
+        } />
 
-        </Route>
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedIn ? (
+              <div>
+                <Header balance={calculateBalance()} handleLogout={handleLogout} />
+                <Dashboard transactions={transactions} />
+              </div>
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
 
       </Routes>
     </Router>

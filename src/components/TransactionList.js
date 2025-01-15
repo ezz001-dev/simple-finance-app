@@ -21,7 +21,7 @@ const TransactionList = ({ transactions, onRemoveTransaction, onEditTransaction 
                             <small className="text-muted">{new Date(transaction.date).toLocaleDateString()}</small>
                         </div>
                         <div>
-                            Rp {transaction.amount.toLocaleString()}
+                            Rp {transaction.amount?.toLocaleString()}
                             <button
                                 className="btn btn-warning btn-sm ms-3"
                                 onClick={() => onEditTransaction(index)}
